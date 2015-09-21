@@ -1,20 +1,19 @@
 /**
  * Copyright (c) 2015 Intel Corporation
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 package org.trustedanalytics.h2omodel;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -24,46 +23,72 @@ import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 
-public class TestClassPathBuilder {
+public enum TestClassPathBuilder {
 
-	private static final String H2O_MODEL_TEST_LIB = "/h2o-model-test-lib-1.0-jar-with-dependencies.jar";
+    INSTANCE;
 
-	void prepareClassPath() throws ClassNotFoundException, IOException {
-		URL[] jarUrl = { this.getClass().getResource(H2O_MODEL_TEST_LIB) };
-		URLClassLoader urlClassLoader = new URLClassLoader(jarUrl, Thread.currentThread().getContextClassLoader());
+    ClassLoader initialClassLoader = Thread.currentThread().getContextClassLoader();
 
-		Iterable<String> classNames = extractClassNamesFromJar(H2O_MODEL_TEST_LIB);
-		for (String className : classNames) {
-			urlClassLoader.loadClass(className);
-		}
+    private static final String H2O_ONE_MODEL_TEST_LIB = "/h2o-one-model-test-lib.jar";
 
-		Thread.currentThread().setContextClassLoader(urlClassLoader);
+    private static final String H2O_TWO_MODELS_TEST_LIB = "/h2o-two-models-test-lib.jar";
 
-		urlClassLoader.close();
-	}
 
-	private Iterable<String> extractClassNamesFromJar(String jarResourcePath) throws IOException {
+    public void prepareClasspathWithOneModel() throws ClassNotFoundException, IOException {
+        this.prepareClassPath(H2O_ONE_MODEL_TEST_LIB);
+    }
 
-		List<String> classNames = new LinkedList<String>();
+    public void prepareClasspathWithMoreThanOneModel() throws ClassNotFoundException, IOException {
+        this.prepareClassPath(H2O_TWO_MODELS_TEST_LIB);
+    }
+    
+    public void prepareClassPathWithoutModel() {
+        //default classpath contains no model
+    }
 
-		JarInputStream jarInputStream = new JarInputStream(getClass().getResourceAsStream(H2O_MODEL_TEST_LIB));
-		JarEntry jarEntry = jarInputStream.getNextJarEntry();
+    private void prepareClassPath(String jarResourcePath)
+            throws ClassNotFoundException, IOException {
+        URL[] jarUrl = {this.getClass().getResource(jarResourcePath)};
+        URLClassLoader urlClassLoader =
+                new URLClassLoader(jarUrl, Thread.currentThread().getContextClassLoader());
 
-		while (jarEntry != null) {
-			String jarEntryName = jarEntry.getName();
-			if (!jarEntry.isDirectory() && jarEntryName.endsWith(".class")) {
-				classNames.add(extractClassNameFromFilePath(jarEntryName));
-			}
+        Iterable<String> classNames = extractClassNamesFromJar(jarResourcePath);
+        for (String className : classNames) {
+            urlClassLoader.loadClass(className);
+        }
 
-			jarEntry = jarInputStream.getNextJarEntry();
-		}
+        Thread.currentThread().setContextClassLoader(urlClassLoader);
 
-		jarInputStream.close();
-		return classNames;
-	}
+        urlClassLoader.close();
+    }
 
-	private String extractClassNameFromFilePath(String filePath) {
-		return filePath.substring(0, filePath.lastIndexOf(".")).replaceAll(File.separator, ".");
-	}
+    private Iterable<String> extractClassNamesFromJar(String jarPath) throws IOException {
+
+        List<String> classNames = new LinkedList<String>();
+
+        JarInputStream jarInputStream = new JarInputStream(getClass().getResourceAsStream(jarPath));
+        JarEntry jarEntry = jarInputStream.getNextJarEntry();
+
+        while (jarEntry != null) {
+            String jarEntryName = jarEntry.getName();
+            if (!jarEntry.isDirectory() && jarEntryName.endsWith(".class")) {
+                classNames.add(extractClassNameFromFilePath(jarEntryName));
+            }
+
+            jarEntry = jarInputStream.getNextJarEntry();
+        }
+
+        jarInputStream.close();
+        return classNames;
+    }
+
+    private String extractClassNameFromFilePath(String filePath) {
+        return filePath.substring(0, filePath.lastIndexOf(".")).replaceAll(File.separator, ".");
+    }
+
+    public void restoreInitialClasspath() throws IOException {
+        // restoring initial classPath
+        Thread.currentThread().setContextClassLoader(initialClassLoader);
+    }
 
 }

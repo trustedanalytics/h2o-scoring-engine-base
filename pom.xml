@@ -9,10 +9,10 @@
 	</parent>
 
 	<artifactId>h2o-scoring-engine-prototype</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.4.0</version>
 	<name>h2o-scoring-engine-prototype</name>
 	<description>Service prototype for REST wrapping H2O model POJOs.</description>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -38,14 +38,14 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
- 		<dependency>
- 			<groupId>org.mockito</groupId>
- 			<artifactId>mockito-core</artifactId>
- 		</dependency>
- 		<dependency>
- 			<groupId>org.hamcrest</groupId>
- 			<artifactId>hamcrest-library</artifactId>
- 		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+		</dependency>
 	</dependencies>
 
 	<properties>
