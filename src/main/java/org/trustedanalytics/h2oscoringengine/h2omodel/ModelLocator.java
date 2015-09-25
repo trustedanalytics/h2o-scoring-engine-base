@@ -23,13 +23,9 @@ import hex.genmodel.GenModel;
 
 public class ModelLocator {
 
-    private GenModel model;
-
-    public H2OModel getModel() throws ModelNotFoundException {
-        if (this.model == null) {
-            this.model = findModel();
-        }
-        return new H2OModel(this.model);
+    public H2oModel getModel() throws ModelNotFoundException {
+        GenModel h2oModelPojo = findModel();
+        return new H2oModel(h2oModelPojo);
     }
 
     private GenModel findModel() throws ModelNotFoundException {

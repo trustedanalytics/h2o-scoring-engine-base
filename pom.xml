@@ -11,7 +11,7 @@
 	<artifactId>h2o-scoring-engine-prototype</artifactId>
 	<version>0.4.0</version>
 	<name>h2o-scoring-engine-prototype</name>
-	<description>Service prototype for REST wrapping H2O model POJOs.</description>
+	<description>Application prototype for exposing H2O model POJO as a RESTful service.</description>
 
 	<dependencies>
 		<dependency>
@@ -66,6 +66,10 @@
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-library</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
 		</dependency>
 	</dependencies>
 

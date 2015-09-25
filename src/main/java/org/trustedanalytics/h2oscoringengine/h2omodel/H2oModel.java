@@ -13,23 +13,24 @@
  */
 package org.trustedanalytics.h2oscoringengine.h2omodel;
 
+
+import static com.google.common.base.Preconditions.checkArgument;
+
 import hex.genmodel.GenModel;
 
-public class H2OModel {
-    GenModel model;
+public class H2oModel {
+    
+    private GenModel model;
 
-    public H2OModel(GenModel model) {
-        super();
+    public H2oModel(GenModel model) {
         this.model = model;
     }
 
-    public double[] score(double[] data) throws InvalidDataSizeException {
+    public double[] score(double[] data) {
 
-        if (data.length != model.nfeatures()) {
-            throw new InvalidDataSizeException(
-                    "Required input data size: " + model.nfeatures() + ", given: " + data.length);
-        }
-
+        checkArgument(data.length == model.nfeatures(), "Required input data size: %s, given %s", model.nfeatures(), data.length);
+    
+        //H2O GenModel.score0 method requires an array of a size GenModel.classes + 1 as a second argument.
         double[] resultArray = new double[model.nclasses() + 1];
         return model.score0(data, resultArray);
     }

@@ -22,7 +22,7 @@ import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.trustedanalytics.h2oscoringengine.h2omodel.H2OModel;
+import org.trustedanalytics.h2oscoringengine.h2omodel.H2oModel;
 import org.trustedanalytics.h2oscoringengine.h2omodel.ModelLocator;
 import org.trustedanalytics.h2oscoringengine.h2omodel.ModelNotFoundException;
 
@@ -39,10 +39,10 @@ public class ModelLocatorTest {
 
         // when
         TestClassPathBuilder.INSTANCE.prepareClasspathWithOneModel();
-        H2OModel model = finder.getModel();
+        H2oModel model = finder.getModel();
 
         // then
-        assertThat(model, instanceOf(H2OModel.class));
+        assertThat(model, instanceOf(H2oModel.class));
     }
 
     @Test

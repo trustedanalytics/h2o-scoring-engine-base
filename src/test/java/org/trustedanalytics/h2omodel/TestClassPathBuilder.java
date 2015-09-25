@@ -13,7 +13,6 @@
  */
 package org.trustedanalytics.h2omodel;
 
-import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -27,7 +26,7 @@ public enum TestClassPathBuilder {
 
     INSTANCE;
 
-    ClassLoader initialClassLoader = Thread.currentThread().getContextClassLoader();
+    private ClassLoader initialClassLoader = Thread.currentThread().getContextClassLoader();
 
     private static final String H2O_ONE_MODEL_TEST_LIB = "/h2o-one-model-test-lib.jar";
 
@@ -41,9 +40,9 @@ public enum TestClassPathBuilder {
     public void prepareClasspathWithMoreThanOneModel() throws ClassNotFoundException, IOException {
         this.prepareClassPath(H2O_TWO_MODELS_TEST_LIB);
     }
-    
+
     public void prepareClassPathWithoutModel() {
-        //default classpath contains no model
+        // default classpath contains no model
     }
 
     private void prepareClassPath(String jarResourcePath)

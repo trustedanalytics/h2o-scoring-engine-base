@@ -24,12 +24,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.ArgumentCaptor;
-import org.trustedanalytics.h2oscoringengine.h2omodel.H2OModel;
-import org.trustedanalytics.h2oscoringengine.h2omodel.InvalidDataSizeException;
+import org.trustedanalytics.h2oscoringengine.h2omodel.H2oModel;
 
 import hex.genmodel.GenModel;
 
-public class H2OModelTest {
+public class H2oModelTest {
 
     private static int MODEL_FEATURES_NUMBER = 10;
     private static int MODEL_CLASSES_NUMBER = 45;
@@ -43,13 +42,12 @@ public class H2OModelTest {
     public final ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void score_ValidInpuDataSize_ValidOutputDataSizeReturned()
-            throws InvalidDataSizeException {
+    public void score_ValidInpuDataSize_ValidOutputDataSizeReturned() {
         // given
         GenModel h2oGenModelMock = constructGenModelMock();
 
         // when
-        H2OModel h2oModel = new H2OModel(h2oGenModelMock);
+        H2oModel h2oModel = new H2oModel(h2oGenModelMock);
         double[] result = h2oModel.score(new double[MODEL_VALID_INPUT_DATA_SIZE]);
 
         // then
@@ -67,15 +65,15 @@ public class H2OModelTest {
     }
 
     @Test
-    public void score_InvalidInputDataSize_ExceptionThrown() throws InvalidDataSizeException {
+    public void score_InvalidInputDataSize_ExceptionThrown() {
         // given
         GenModel h2oGenModelMock = constructGenModelMock();
 
         // when
-        H2OModel h2oModel = new H2OModel(h2oGenModelMock);
+        H2oModel h2oModel = new H2oModel(h2oGenModelMock);
 
         // then
-        thrown.expect(InvalidDataSizeException.class);
+        thrown.expect(IllegalArgumentException.class);
         h2oModel.score(new double[MODEL_INVALID_INPUT_DATA_SIZE]);
 
     }

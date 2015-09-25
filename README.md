@@ -1,5 +1,5 @@
 # h2o-scoring-engine-prototype
-Service prototype for REST wrapping H2O model POJO
+Application prototype for exposing H2O model POJO as a RESTful service.
 
 ## Runnig locally
 To use h2o-scoring-engine-prototype you need to provide H2O model POJO class on a classpath of the project:
