@@ -41,7 +41,7 @@ public class ModelLocator {
 
         try {
             return models.iterator().next().newInstance();
-        } catch (Throwable e) {
+        } catch (Exception e) {
             throw new ModelNotFoundException(e);
         }
     }
