@@ -20,7 +20,7 @@ import hex.genmodel.GenModel;
 
 public class H2oModel {
     
-    private GenModel model;
+    private final GenModel model;
 
     public H2oModel(GenModel model) {
         this.model = model;

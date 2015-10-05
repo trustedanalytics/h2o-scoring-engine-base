@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.trustedanalytics.h2omodel;
+package org.trustedanalytics.h2oscoringengine;
 
 import java.io.File;
 import java.io.IOException;

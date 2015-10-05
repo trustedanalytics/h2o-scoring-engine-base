@@ -81,7 +81,7 @@ function main() {
   shift $((OPTIND-1))
 
   if [[ $# -lt 3 ]]; then
-    echo -e "\nUsage:\n$0 [-o output_file] <model name> <h2o server URL> <h2o scoring engine prototype jar path> \n"
+    echo -e "\nUsage:\n$0 [-o output_file] <h2o server URL> <model name> <h2o scoring engine prototype jar path> \n"
     exit 1
   fi
 
