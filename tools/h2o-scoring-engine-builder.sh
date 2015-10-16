@@ -18,7 +18,7 @@
 ###############################################################################
 #
 #
-# Usage: h2o-scoring-engine-builder [-o output file] <h2o server url> <h2o model name> <path to scoring engine prototype jar>
+# Usage: h2o-scoring-engine-builder [-o output file] [-u h2o server user] [-p h2o server password] <h2o server url> <h2o model name> <path to scoring engine prototype jar>
 #
 # Downloads model and h2o-genmodel.jar library from h2o server and builds a scoring engine using 
 # h2o-scoring-engine-prototype app. 
@@ -52,9 +52,11 @@ function display_info() {
 function download() {
   local url=$1
   local output_file=$2
+  local user=$3
+  local password=$4
   
   local http_status_code	
-  http_status_code="$(curl --output ${output_file} --write-out "%{http_code}" ${url})"
+  http_status_code="$(curl -u ${user}:${password} --output ${output_file} --write-out "%{http_code}" ${url})"
   if [[ ${http_status_code} -ne 200 ]]; then
     echo $1' download failed with status code: '${http_status_code}
   fi
@@ -62,10 +64,16 @@ function download() {
 
 function main() {
 
-  while getopts ":o:" opt; do
+  while getopts ":o:u:p:" opt; do
     case $opt in
       o)
         OUTPUT_FILE=$OPTARG
+        ;;
+      u)
+        H2O_USER=$OPTARG
+        ;;
+      p)
+        H2O_PASSWORD=$OPTARG
         ;;
       \?)
         echo "Invalid option: -$OPTARG" >&2
@@ -81,7 +89,7 @@ function main() {
   shift $((OPTIND-1))
 
   if [[ $# -lt 3 ]]; then
-    echo -e "\nUsage:\n$0 [-o output_file] <h2o server URL> <model name> <h2o scoring engine prototype jar path> \n"
+    echo -e "\nUsage:\n$0 [-o output_file] [-u h2o_server_user] [-p h2o_server_password] <h2o server URL> <model name> <h2o scoring engine prototype jar path> \n"
     exit 1
   fi
 
@@ -102,9 +110,10 @@ function main() {
   tmp_dir=$(mktemp -d)
   cd ${tmp_dir}
 
+
   #downloads model class
   display_info "Downloading model from ${model_url}:"
-  result="$(download ${model_url} ${model_class_file})"
+  result="$(download ${model_url} ${model_class_file} ${H2O_USER} ${H2O_PASSWORD})"
   if [[ -n "${result}" ]]; then
     #download failed - clean up and exit
     if [[ -e ${model_class_file} ]]; then
@@ -118,7 +127,7 @@ function main() {
   
   #downloads library file
   display_info "Downloading h2o-genmodel.jar from ${h2o_lib_url}:"
-  result="$(download ${h2o_lib_url} ${genmodel_lib})"
+  result="$(download ${h2o_lib_url} ${genmodel_lib} ${H2O_USER} ${H2O_PASSWORD})"
   if [[ -n "${result}" ]]; then
     #download failed - clean up and exit
     rm ${model_class_file}
