@@ -8,9 +8,9 @@
 		<version>0.4.1</version>
 	</parent>
 
-	<artifactId>h2o-scoring-engine-prototype</artifactId>
-	<version>0.4.4</version>
-	<name>h2o-scoring-engine-prototype</name>
+	<artifactId>h2o-scoring-engine-base</artifactId>
+	<version>0.4.5</version>
+	<name>h2o-scoring-engine-base</name>
 	<description>Application prototype for exposing H2O model POJO as a RESTful service.</description>
 
 	<dependencies>
