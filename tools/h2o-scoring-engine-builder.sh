@@ -64,7 +64,7 @@ function download() {
 
 function main() {
 
-  while getopts ":o:u:p:" opt; do
+  while getopts ":o:u:p" opt; do
     case $opt in
       o)
         OUTPUT_FILE=$OPTARG
@@ -73,7 +73,7 @@ function main() {
         H2O_USER=$OPTARG
         ;;
       p)
-        H2O_PASSWORD=$OPTARG
+        read -s -p $'Enter password:\n' H2O_PASSWORD
         ;;
       \?)
         echo "Invalid option: -$OPTARG" >&2
