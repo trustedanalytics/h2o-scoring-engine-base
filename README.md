@@ -7,7 +7,7 @@ To build `h2o-scoring-engine-base`, run the following command from the project r
 ```
 mvn clean package
 ```
-After building `h2o-scoring-engine-base` go to *tools* directory and run a `h2o-scoring-engine-builder.sh` passing 3 parameters: H2O server URL, H2O model name and a path to previously built h2o-scoring-engine-prototype JAR. 
+After building `h2o-scoring-engine-base` go to *tools* directory and run a `h2o-scoring-engine-builder.sh` passing 3 parameters: H2O server URL, H2O model name and a path to previously built h2o-scoring-engine-base JAR. 
 ```
  ./h2o-scoring-engine-builder.sh https://<h2o server> <model_name> ../target/h2o-scoring-engine-base.jar
 ```
