@@ -32,16 +32,17 @@ import org.trustedanalytics.h2oscoringengine.h2omodel.H2oModel;
 @RestController
 public class H2oScoringEngineController {
 
+    public static final String POST_H2O_MODEL_URL = "/score";
+    private static final Logger LOGGER = LoggerFactory.getLogger(H2oScoringEngineController.class);
+
     private final H2oModel model;
+
 
     @Autowired
     public H2oScoringEngineController(H2oModel model) {
         this.model = model;
     }
 
-    public static final String POST_H2O_MODEL_URL = "/score";
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(H2oScoringEngineController.class);
 
     /**
      * Using POST method due to potential large input data size.
