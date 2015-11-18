@@ -13,7 +13,7 @@ After building `h2o-scoring-engine-base` go to *tools* directory and run a `h2o-
 ```
 Optionally, you can also pass output file name and credentials for H2O server.
 ```
-./h2o-scoring-engine-builder.sh  -o <output jar name> -u <username> -p <password> https://<h2o server> <model name> ../target/h2o-scoring-engine-base.jar
+./h2o-scoring-engine-builder.sh  -o <output jar name> -u <username> -p https://<h2o server> <model name> ../target/h2o-scoring-engine-base.jar
 ```
 Builder script downloads your model and a required `h2o-genmodel.jar` library form H2O server and builds a scoring engine based on the model.
 Application JAR, `h2o-scoring-engine-<model name>.jar`, is placed in working directory.
