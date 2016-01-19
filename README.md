@@ -3,7 +3,7 @@ The `h2o-scoring-engine-base` is an application prototype for exposing H2O model
 Repository contains a prototype application and a building script for creating scoring engine based on provided H2O model.
 
 ## Prerequisites
-You'll need to have the parent pom installed with the correct version:
+You'll need a JDK version 1.8, and also to have the parent pom installed with the correct version:
 ```
 git clone https://github.com/trustedanalytics/trustedanalytics-cloud-parent.git
 cd trustedanalytics-cloud-parent
