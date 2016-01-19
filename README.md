@@ -2,6 +2,15 @@
 The `h2o-scoring-engine-base` is an application prototype for exposing H2O model POJO as a RESTful service.
 Repository contains a prototype application and a building script for creating scoring engine based on provided H2O model.
 
+## Prerequisites
+You'll need to have the parent pom installed with the correct version:
+```
+git clone https://github.com/trustedanalytics/trustedanalytics-cloud-parent.git
+cd trustedanalytics-cloud-parent
+git checkout edf7681e
+mvn clean install
+```
+
 ## Building scoring engine
 To build `h2o-scoring-engine-base`, run the following command from the project root directory: 
 ```
