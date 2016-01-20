@@ -34,6 +34,8 @@ To run it locally run:
 java -jar h2o-scoring-engine-<model name>.jar
 ```
 
+To specify a particular port, rather than the default "8080," append to the above command `--server.port <port>`.
+
 ## Using scoring engine
 Scoring engine *score* method is accessible through REST API:
 
