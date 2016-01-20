@@ -10,6 +10,8 @@ cd trustedanalytics-cloud-parent
 git checkout edf7681e
 mvn clean install
 ```
+You'll also need to ensure that your model is named such that it is a valid
+Java class name. For example, use underscores (_) rather than hyphens (-).
 
 ## Building scoring engine
 To build `h2o-scoring-engine-base`, run the following command from the project root directory: 
