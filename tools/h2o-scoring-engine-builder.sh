@@ -106,46 +106,68 @@ function main() {
   model_class_file=${MODEL_NAME}.java
   genmodel_lib='h2o-genmodel.jar'
 
-  #switches to temporary directory
-  tmp_dir=$(mktemp -d)
+  # Switches to temporary directory.
+  if [[ -f .tmp_dir && -d `cat .tmp_dir` ]]; then
+    tmp_dir=`cat .tmp_dir`
+  else
+    tmp_dir=$(mktemp -d)
+    echo $tmp_dir > .tmp_dir
+  fi
+    
   cd ${tmp_dir}
 
 
   #downloads model class
-  display_info "Downloading model from ${model_url}:"
-  result="$(download ${model_url} ${model_class_file} ${H2O_USER} ${H2O_PASSWORD})"
-  if [[ -n "${result}" ]]; then
-    #download failed - clean up and exit
-    if [[ -e ${model_class_file} ]]; then
-      rm ${model_class_file}
+  if [ -f $model_class_file ]
+  then
+    display_info 'Re-using existing model.'
+  else
+    display_info "Downloading model from ${model_url}:"
+    result="$(download ${model_url} ${model_class_file} ${H2O_USER} ${H2O_PASSWORD})"
+    if [[ -n "${result}" ]]; then
+      #download failed - clean up and exit
+      if [[ -e ${model_class_file} ]]; then
+        rm ${model_class_file}
+      fi
+      echo ${result}
+      exit 1
     fi
-    echo ${result}
-    exit 1
+    display_info 'Done.'
   fi
-  display_info 'Done.'
 
   
   #downloads library file
+  if [ -f $genmodel_lib ]
+  then
+    display_info 'Re-using existing h2o-genmodel.jar.'
+  else
   display_info "Downloading h2o-genmodel.jar from ${h2o_lib_url}:"
-  result="$(download ${h2o_lib_url} ${genmodel_lib} ${H2O_USER} ${H2O_PASSWORD})"
-  if [[ -n "${result}" ]]; then
-    #download failed - clean up and exit
-    rm ${model_class_file}
-    if [[ -e ${genmodel_lib} ]]; then
-      rm ${genmodel_lib}
-    fi 	
-    echo ${result}
-    exit 1
+    result="$(download ${h2o_lib_url} ${genmodel_lib} ${H2O_USER} ${H2O_PASSWORD})"
+    if [[ -n "${result}" ]]; then
+      #download failed - clean up and exit
+      rm ${model_class_file}
+      if [[ -e ${genmodel_lib} ]]; then
+        rm ${genmodel_lib}
+      fi 	
+      echo ${result}
+      exit 1
+    fi
+    display_info 'Done.'
   fi
-  display_info 'Done.'
 
   
   #compiles model and build JAR file
   display_info 'Compiling and packaging model:'
-  mkdir class_dir
-  javac -cp ${genmodel_lib} ${model_class_file} -d class_dir
+  if [ ! -d class_dir ]
+  then 
+    mkdir class_dir
+  fi
+  javac -cp ${genmodel_lib} -J-XX:-UseGCOverheadLimit -J-Xms2G -J-Xmx8G ${model_class_file} -d class_dir
 
-  mkdir lib
+  if [ ! -d lib ]
+  then
+    mkdir lib
+  fi
   jar cvf lib/h2o-model.jar -C class_dir .
   display_info 'Done.'
 
@@ -156,15 +178,17 @@ function main() {
   
   jar uvf0 ${OUTPUT_FILE} lib/h2o-model.jar
   
-  cp ${tmp_dir}/${OUTPUT_FILE} ${WORKING_DIR}
+  cp ${OUTPUT_FILE} ${WORKING_DIR}
   display_info 'Done.'
 
 
-  #cleanup
-  rm -rf ${tmp_dir}
+  # Suggest cleanup.
+  display_info "You may now delete ${tmp_dir}"
 
   display_info "Genarated jar: ${OUTPUT_FILE}"
 }
 
+# Stop on Error.
+set -e
 main "$@"
 

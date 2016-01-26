@@ -14,6 +14,7 @@
 package org.trustedanalytics.h2oscoringengine.rest;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -30,16 +31,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.trustedanalytics.h2oscoringengine.h2omodel.H2oModel;
 
 @RestController
-public class H2oScoringEngineController {
+public class H2oObjectScoringEngineController {
 
-    public static final String POST_H2O_MODEL_URL = "/score";
-    private static final Logger LOGGER = LoggerFactory.getLogger(H2oScoringEngineController.class);
+    public static final String POST_H2O_MODEL_URL = "/score-object";
+    private static final Logger LOGGER = LoggerFactory.getLogger(H2oObjectScoringEngineController.class);
 
     private final H2oModel model;
 
 
     @Autowired
-    public H2oScoringEngineController(H2oModel model) {
+    public H2oObjectScoringEngineController(H2oModel model) {
         this.model = model;
     }
 
@@ -49,8 +50,7 @@ public class H2oScoringEngineController {
      */
     @RequestMapping(method = RequestMethod.POST, value = POST_H2O_MODEL_URL,
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = "application/json")
-    public double[] score(@RequestBody(required = true) double[] data) {
-
+    public double[] score(@RequestBody(required = true) HashMap<String, Object> data) {
         return model.score(data);
     }
 
