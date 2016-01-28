@@ -39,7 +39,7 @@ To specify a particular port, rather than the default "8080," append to the abov
 ## Using scoring engine
 Scoring engine *score* method is accessible through REST API:
 
-# **URL**: `http://<application host>/score`
+### **URL**: `http://<application host>/score`
 
 **Headers**: `Content-type: application/json`
 
@@ -52,7 +52,7 @@ Usage example:
 curl -i -X POST -H "Content-type: application/json" -d '[1.2, 1.3, 1.4, 5.3]' http://<application host>/score
 ```
 
-# **URL**: `http://<application host>/score-object`
+### **URL**: `http://<application host>/score-object`
 
 **Headers**: `Content-type: application/json`
 
