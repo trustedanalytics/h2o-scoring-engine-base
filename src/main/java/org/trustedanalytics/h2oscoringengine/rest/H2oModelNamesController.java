@@ -31,16 +31,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.trustedanalytics.h2oscoringengine.h2omodel.H2oModel;
 
 @RestController
-public class H2oObjectScoringEngineController {
+public class H2oModelNamesController {
 
-    public static final String POST_H2O_MODEL_URL = "/score-object";
+    public static final String POST_H2O_MODEL_URL = "/names";
     private static final Logger LOGGER = LoggerFactory.getLogger(H2oObjectScoringEngineController.class);
 
     private final H2oModel model;
 
 
     @Autowired
-    public H2oObjectScoringEngineController(H2oModel model) {
+    public H2oModelNamesController(H2oModel model) {
         this.model = model;
     }
 
@@ -48,17 +48,10 @@ public class H2oObjectScoringEngineController {
     /**
      * Using POST method due to potential large input data size.
      */
-    @RequestMapping(method = RequestMethod.POST, value = POST_H2O_MODEL_URL,
-            produces = MediaType.APPLICATION_JSON_VALUE, consumes = "application/json")
-    public String[] score(@RequestBody(required = true) HashMap<String, Object> data) {
-        return model.score(data);
-    }
-
-    @ExceptionHandler(IllegalArgumentException.class)
-    void handleIllegalArgumentException(IllegalArgumentException e, HttpServletResponse response)
-            throws IOException {
-        LOGGER.error("Invalid input data size:", e);
-        response.sendError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+    @RequestMapping(value = POST_H2O_MODEL_URL,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public String[] getNames() {
+        return model.getNames();
     }
 
 }

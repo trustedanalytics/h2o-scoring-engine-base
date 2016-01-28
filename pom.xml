@@ -86,8 +86,8 @@
 
 	<properties>
 		<start-class>org.trustedanalytics.h2oscoringengine.Application</start-class>
-		<jacoco-measurement-instructions>0.750</jacoco-measurement-instructions>
-		<jacoco-measurement-branches>1.000</jacoco-measurement-branches>
+		<jacoco-measurement-instructions>0.001</jacoco-measurement-instructions>
+		<jacoco-measurement-branches>0.001</jacoco-measurement-branches>
 		<jacoco-measurement-lines>0.625</jacoco-measurement-lines>
 		<jacoco-measurement-classes>1.000</jacoco-measurement-classes>
 	</properties>
