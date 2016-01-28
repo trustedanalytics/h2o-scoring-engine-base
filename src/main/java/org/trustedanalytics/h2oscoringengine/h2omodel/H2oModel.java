@@ -20,6 +20,7 @@ import hex.genmodel.GenModel;
 import hex.genmodel.easy.RowData;
 import hex.genmodel.easy.EasyPredictModelWrapper;
 import hex.genmodel.easy.prediction.*;
+import hex.genmodel.easy.exception.*;
 
 import java.util.HashMap;
 import java.util.Arrays;
@@ -52,6 +53,10 @@ public class H2oModel {
           BinomialModelPrediction pred = predictor.predictBinomial(row);
           String[] result = {pred.label, String.format("%.5f", pred.classProbabilities[0]), String.format("%.5f", pred.classProbabilities[1])};
           return result;
+        }
+        catch (PredictUnknownCategoricalLevelException e) {
+          data.remove(e.getColumnName());
+          return this.score(data);
         }
         catch (Exception e) {
           System.out.println("Error: Prediction Exception");
