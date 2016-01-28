@@ -64,3 +64,9 @@ Usage example:
 ```
 curl -i -X POST -H "Content-type: application/json" -d '{"foo": "bar", "baz": "1"}' http://<application host>/score-object
 ```
+
+### **URL**: `http://<application host>/names`
+
+**HTTP Method**: `GET`
+
+**Response**: JSON Array of names supported by the model for scoring with a JSON Object.
