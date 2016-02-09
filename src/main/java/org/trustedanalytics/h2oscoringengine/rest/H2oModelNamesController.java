@@ -13,28 +13,16 @@
  */
 package org.trustedanalytics.h2oscoringengine.rest;
 
-import java.io.IOException;
-import java.util.HashMap;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.trustedanalytics.h2oscoringengine.h2omodel.H2oModel;
 
 @RestController
 public class H2oModelNamesController {
 
-    public static final String POST_H2O_MODEL_URL = "/names";
-    private static final Logger LOGGER = LoggerFactory.getLogger(H2oObjectScoringEngineController.class);
+    public static final String GET_H2O_MODEL_URL = "/names";
 
     private final H2oModel model;
 
@@ -46,9 +34,9 @@ public class H2oModelNamesController {
 
 
     /**
-     * Using POST method due to potential large input data size.
+     * Using GET, since there are no inputs to this request.
      */
-    @RequestMapping(value = POST_H2O_MODEL_URL,
+    @RequestMapping(value = GET_H2O_MODEL_URL,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public String[] getNames() {
         return model.getNames();
