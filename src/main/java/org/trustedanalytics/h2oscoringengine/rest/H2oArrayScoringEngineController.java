@@ -14,7 +14,6 @@
 package org.trustedanalytics.h2oscoringengine.rest;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
 
