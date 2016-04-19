@@ -61,7 +61,7 @@ public class H2oScoringEngineControllerTest {
 
     @BeforeClass
     public static void prepareClassPathWithTestModel() throws ClassNotFoundException, IOException {
-        TestClassPathBuilder.INSTANCE.prepareClasspathWithOneModel();
+        TestClassPathBuilder.INSTANCE.prepareClasspathWith3_1CompatibleModel();
     }
 
     @Before
