@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.trustedanalytics</groupId>
 		<artifactId>trustedanalytics-cloud-parent</artifactId>
-		<version>0.4.2</version>
+		<version>0.6.0</version>
 	</parent>
 
 	<artifactId>h2o-scoring-engine-base</artifactId>
