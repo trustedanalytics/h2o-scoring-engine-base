@@ -14,11 +14,11 @@ You'll also need to ensure that your model is named such that it is a valid
 Java class name. For example, use underscores (_) rather than hyphens (-).
 
 ## Building scoring engine
-To build `h2o-scoring-engine-base`, run the following command from the project root directory: 
+To build `h2o-scoring-engine-base`, run the following command from the project root directory:
 ```
 mvn clean package
 ```
-After building `h2o-scoring-engine-base` go to *tools* directory and run a `h2o-scoring-engine-builder.sh` passing 3 parameters: H2O server URL, H2O model name and a path to previously built h2o-scoring-engine-base JAR. 
+After building `h2o-scoring-engine-base` go to *tools* directory and run a `h2o-scoring-engine-builder.sh` passing 3 parameters: H2O server URL, H2O model name and a path to previously built h2o-scoring-engine-base JAR.
 ```
  ./h2o-scoring-engine-builder.sh https://<h2o server> <model_name> ../target/h2o-scoring-engine-base.jar
 ```
@@ -39,7 +39,7 @@ To specify a particular port, rather than the default "8080," append to the abov
 ## Using scoring engine
 Scoring engine *score* method is accessible through REST API:
 
-**URL**: `http://<application host>/score`
+### **URL**: `http://<application host>/score`
 
 **Headers**: `Content-type: application/json`
 
@@ -47,7 +47,26 @@ Scoring engine *score* method is accessible through REST API:
 
 **Request body**: sequence of numbers of a size required by the model
 
-Usage example: 
+Usage example:
 ```
 curl -i -X POST -H "Content-type: application/json" -d '[1.2, 1.3, 1.4, 5.3]' http://<application host>/score
 ```
+
+### **URL**: `http://<application host>/score-object`
+
+**Headers**: `Content-type: application/json`
+
+**HTTP Method**: `POST`
+
+**Request body**: JSON object of name:value pairs.
+
+Usage example:
+```
+curl -i -X POST -H "Content-type: application/json" -d '{"foo": "bar", "baz": "1"}' http://<application host>/score-object
+```
+
+### **URL**: `http://<application host>/names`
+
+**HTTP Method**: `GET`
+
+**Response**: JSON Array of names supported by the model for scoring with a JSON Object.
