@@ -31,8 +31,13 @@ public enum TestClassPathBuilder {
     private static final String H2O_ONE_MODEL_TEST_LIB = "/h2o-one-model-test-lib.jar";
 
     private static final String H2O_TWO_MODELS_TEST_LIB = "/h2o-two-models-test-lib.jar";
+    
+    private static final String H2O_MODEL_3_1_AND_HIGHER_COMPATIBLE = "/h2o-model-3.6.0.jar";
 
-
+    public void prepareClasspathWith3_1CompatibleModel() throws ClassNotFoundException, IOException{
+      this.prepareClassPath(H2O_MODEL_3_1_AND_HIGHER_COMPATIBLE);
+    }
+    
     public void prepareClasspathWithOneModel() throws ClassNotFoundException, IOException {
         this.prepareClassPath(H2O_ONE_MODEL_TEST_LIB);
     }

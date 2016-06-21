@@ -1,3 +1,5 @@
+[![Dependency Status](https://www.versioneye.com/user/projects/572367cbba37ce00464e04b6/badge.svg?style=flat)](https://www.versioneye.com/user/projects/572367cbba37ce00464e04b6)
+
 # h2o-scoring-engine-base
 The `h2o-scoring-engine-base` is an application prototype for exposing H2O model POJO as a RESTful service.
 Repository contains a prototype application and a building script for creating scoring engine based on provided H2O model.

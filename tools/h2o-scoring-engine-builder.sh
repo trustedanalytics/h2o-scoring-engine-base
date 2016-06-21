@@ -18,7 +18,7 @@
 ###############################################################################
 #
 #
-# Usage: h2o-scoring-engine-builder [-o output file] [-u h2o server user] [-p h2o server password] <h2o server url> <h2o model name> <path to scoring engine prototype jar>
+# Usage: h2o-scoring-engine-builder [-o output file] [-u h2o server user] [-p] <h2o server url> <h2o model name> <path to scoring engine prototype jar>
 #
 # Downloads model and h2o-genmodel.jar library from h2o server and builds a scoring engine using 
 # h2o-scoring-engine-prototype app. 
@@ -89,7 +89,7 @@ function main() {
   shift $((OPTIND-1))
 
   if [[ $# -lt 3 ]]; then
-    echo -e "\nUsage:\n$0 [-o output_file] [-u h2o_server_user] [-p h2o_server_password] <h2o server URL> <model name> <h2o scoring engine prototype jar path> \n"
+    echo -e "\nUsage:\n$0 [-o output_file] [-u h2o_server_user] [-p] <h2o server URL> <model name> <h2o scoring engine prototype jar path> \n"
     exit 1
   fi
 
