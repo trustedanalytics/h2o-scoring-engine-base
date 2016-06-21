@@ -30,16 +30,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.trustedanalytics.h2oscoringengine.h2omodel.H2oModel;
 
 @RestController
-public class H2oScoringEngineController {
+public class H2oArrayScoringEngineController {
 
     public static final String POST_H2O_MODEL_URL = "/score";
-    private static final Logger LOGGER = LoggerFactory.getLogger(H2oScoringEngineController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(H2oArrayScoringEngineController.class);
 
     private final H2oModel model;
 
 
     @Autowired
-    public H2oScoringEngineController(H2oModel model) {
+    public H2oArrayScoringEngineController(H2oModel model) {
         this.model = model;
     }
 
@@ -50,7 +50,6 @@ public class H2oScoringEngineController {
     @RequestMapping(method = RequestMethod.POST, value = POST_H2O_MODEL_URL,
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = "application/json")
     public double[] score(@RequestBody(required = true) double[] data) {
-
         return model.score(data);
     }
 
