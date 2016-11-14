@@ -1,0 +1,61 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Wrapper service for exposing H2O data models as REST services.",
+    "version" : "v1",
+    "title" : "H2O Scoring Engine Base",
+    "license" : {
+      "name" : "Apache License Version 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host" : "localhost",
+  "basePath" : "/",
+  "tags" : [ {
+    "name" : "h-2o-scoring-engine-controller",
+    "description" : "H 2o Scoring Engine Controller"
+  } ],
+  "paths" : {
+    "/score" : {
+      "post" : {
+        "tags" : [ "h-2o-scoring-engine-controller" ],
+        "summary" : "Returns a result of the score operation for the given data model",
+        "description" : "Privilege level: can be called by any consumer",
+        "operationId" : "scoreUsingPOST",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "data",
+          "description" : "Input data for scoring",
+          "required" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "number",
+              "format" : "double"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "SUCCESS",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "number",
+                "format" : "double"
+              }
+            }
+          },
+          "400" : {
+            "description" : "When data input size is invalid for the given model"
+          },
+          "500" : {
+            "description" : "Internal server error"
+          }
+        }
+      }
+    }
+  }
+}
