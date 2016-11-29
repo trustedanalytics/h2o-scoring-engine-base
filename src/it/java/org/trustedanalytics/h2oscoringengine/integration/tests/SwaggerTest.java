@@ -48,7 +48,7 @@ import java.nio.file.StandardOpenOption;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
-@IntegrationTest
+@IntegrationTest("server.port:0")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class SwaggerTest {
 
