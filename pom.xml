@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>h2o-scoring-engine-base</artifactId>
-    <version>0.5.7</version>
+    <version>0.5.8</version>
     <name>h2o-scoring-engine-base</name>
     <description>Application prototype for exposing H2O model POJO as a RESTful service.</description>
 

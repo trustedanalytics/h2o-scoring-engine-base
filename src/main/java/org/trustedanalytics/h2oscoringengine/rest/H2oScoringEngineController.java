@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.util.HtmlUtils;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
@@ -73,7 +73,7 @@ public class H2oScoringEngineController {
     void handleIllegalArgumentException(IllegalArgumentException e, HttpServletResponse response)
             throws IOException {
         LOGGER.error("Invalid input data size:", e);
-        response.sendError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        response.sendError(HttpStatus.BAD_REQUEST.value(), HtmlUtils.htmlEscape(e.getMessage()));
     }
 
 }
